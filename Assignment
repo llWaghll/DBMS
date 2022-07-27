@@ -1,0 +1,178 @@
+ubuntu@ubuntu-OptiPlex-5000:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.29-0ubuntu0.22.04.2 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> creat database
+    -> ^C
+mysql> creat database Movies
+    -> ^C
+mysql> creat database Movies;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creat database Movies' at line 1
+mysql> create database Movies;
+Query OK, 1 row affected (0.03 sec)
+
+mysql> use Movies;
+Database changed
+mysql> Create table
+    -> ^C
+mysql> Create table;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> Create table Movie_Info(
+    -> Name varchar(20),
+    -> Director varchar(20),
+    -> Production varchar(20),
+    -> year int);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into Movies_Info("Iron Man","Jon Favreau","Marvel","2008");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"Iron Man","Jon Favreau","Marvel","2008")' at line 1
+mysql> insert into Movies_Info("Iron Man","Jon Favreau","Marvel",2008);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"Iron Man","Jon Favreau","Marvel",2008)' at line 1
+mysql> insert into Movies_Info values("Iron Man","Jon Favreau","Marvel",2008);
+ERROR 1146 (42S02): Table 'Movies.Movies_Info' doesn't exist
+mysql> insert into Movie_Info values("Iron Man","Jon Favreau","Marvel",2008);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Movie_Info values("IT","Andrés Muschietti","Rideback",2017);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Movie_Info values("Minions","Kyle Balda","Illumination Entertainment",2015);
+ERROR 1406 (22001): Data too long for column 'Production' at row 1
+mysql> select * from Movie_Info;
++----------+--------------------+------------+------+
+| Name     | Director           | Production | year |
++----------+--------------------+------------+------+
+| Iron Man | Jon Favreau        | Marvel     | 2008 |
+| IT       | Andrés Muschietti  | Rideback   | 2017 |
++----------+--------------------+------------+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into Movie_Info values("Minions","Kyle Balda","Illumination",2015);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select * from Movie_Info;
++----------+--------------------+--------------+------+
+| Name     | Director           | Production   | year |
++----------+--------------------+--------------+------+
+| Iron Man | Jon Favreau        | Marvel       | 2008 |
+| IT       | Andrés Muschietti  | Rideback     | 2017 |
+| Minions  | Kyle Balda         | Illumination | 2015 |
++----------+--------------------+--------------+------+
+3 rows in set (0.00 sec)
+
+mysql> select Name,Year;
+ERROR 1054 (42S22): Unknown column 'Name' in 'field list'
+mysql> select Name,Year from Movie_Info;
++----------+------+
+| Name     | Year |
++----------+------+
+| Iron Man | 2008 |
+| IT       | 2017 |
+| Minions  | 2015 |
++----------+------+
+3 rows in set (0.00 sec)
+
+mysql> insert into Movie_Info values("Hulk","Ang Lee","Marvel",2003);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from Movie_Info;
++----------+--------------------+--------------+------+
+| Name     | Director           | Production   | year |
++----------+--------------------+--------------+------+
+| Iron Man | Jon Favreau        | Marvel       | 2008 |
+| IT       | Andrés Muschietti  | Rideback     | 2017 |
+| Minions  | Kyle Balda         | Illumination | 2015 |
+| Hulk     | Ang Lee            | Marvel       | 2003 |
++----------+--------------------+--------------+------+
+4 rows in set (0.00 sec)
+
+mysql> select Name,Year,Produvtion from Movie_Info where Productin="Marvel";
+ERROR 1054 (42S22): Unknown column 'Produvtion' in 'field list'
+mysql> select Name,Year,Production from Movie_Info where Productin="Marvel";
+ERROR 1054 (42S22): Unknown column 'Productin' in 'where clause'
+mysql> select Name,Year,Production from Movie_Info where Production="Marvel";
++----------+------+------------+
+| Name     | Year | Production |
++----------+------+------------+
+| Iron Man | 2008 | Marvel     |
+| Hulk     | 2003 | Marvel     |
++----------+------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from Movie_Info order by;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from Movie_Info order by year;
++----------+--------------------+--------------+------+
+| Name     | Director           | Production   | year |
++----------+--------------------+--------------+------+
+| Hulk     | Ang Lee            | Marvel       | 2003 |
+| Iron Man | Jon Favreau        | Marvel       | 2008 |
+| Minions  | Kyle Balda         | Illumination | 2015 |
+| IT       | Andrés Muschietti  | Rideback     | 2017 |
++----------+--------------------+--------------+------+
+4 rows in set (0.00 sec)
+
+mysql> Alter table Movie_Info add column Rating float;
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from Movie_Info;
++----------+--------------------+--------------+------+--------+
+| Name     | Director           | Production   | year | Rating |
++----------+--------------------+--------------+------+--------+
+| Iron Man | Jon Favreau        | Marvel       | 2008 |   NULL |
+| IT       | Andrés Muschietti  | Rideback     | 2017 |   NULL |
+| Minions  | Kyle Balda         | Illumination | 2015 |   NULL |
+| Hulk     | Ang Lee            | Marvel       | 2003 |   NULL |
++----------+--------------------+--------------+------+--------+
+4 rows in set (0.00 sec)
+
+mysql> Alter table Movie_Info drop column Rating;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from Movie_Info;
++----------+--------------------+--------------+------+
+| Name     | Director           | Production   | year |
++----------+--------------------+--------------+------+
+| Iron Man | Jon Favreau        | Marvel       | 2008 |
+| IT       | Andrés Muschietti  | Rideback     | 2017 |
+| Minions  | Kyle Balda         | Illumination | 2015 |
+| Hulk     | Ang Lee            | Marvel       | 2003 |
++----------+--------------------+--------------+------+
+4 rows in set (0.00 sec)
+
+mysql> Alter table Movie_Info modify column year varchar(5);
+Query OK, 4 rows affected (0.06 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> Alter table Movie_Info modify column year int;
+Query OK, 4 rows affected (0.03 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> Alter table Movie_Info rename column year to Year;
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from Movie_Info;
++----------+--------------------+--------------+------+
+| Name     | Director           | Production   | Year |
++----------+--------------------+--------------+------+
+| Iron Man | Jon Favreau        | Marvel       | 2008 |
+| IT       | Andrés Muschietti  | Rideback     | 2017 |
+| Minions  | Kyle Balda         | Illumination | 2015 |
+| Hulk     | Ang Lee            | Marvel       | 2003 |
++----------+--------------------+--------------+------+
+4 rows in set (0.00 sec)
+
+mysql> 
