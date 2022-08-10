@@ -1,0 +1,171 @@
+ubuntu@ubuntu-OptiPlex-5000:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.30-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Company            |
+| Employee           |
+| Government         |
+| NEW                |
+| TE                 |
+| a4                 |
+| b2                 |
+| cricket            |
+| employee           |
+| hospital           |
+| information_schema |
+| movies             |
+| mysql              |
+| performance_schema |
+| school             |
+| series             |
+| student            |
+| sys                |
+| tvshows            |
+| webseries          |
++--------------------+
+20 rows in set (0.00 sec)
+
+mysql> use employee;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> show tables;
++--------------------+
+| Tables_in_employee |
++--------------------+
+| employees          |
++--------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employees;
++--------+----------+--------+--------+------------+
+| emp_id | emp_name | city   | salary | mobile_no  |
++--------+----------+--------+--------+------------+
+|   1001 | sahil    | mumbai | 100000 | 8745692134 |
+|   1002 | Gaurav   | pune   |  76000 | 7412356985 |
+|   1003 | Vinay    | mumbai | 150000 | 9654712358 |
+|   1004 | Manish   | nagpur |  50000 | 5976541258 |
++--------+----------+--------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql>  CREATE VIEW salary AS
+    ->     -> select
+    ->     -> emp_id,
+    ->     -> emp_name,
+    ->     -> salary
+    ->     -> from 
+    -> employees;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> select
+    -> emp_id,
+    -> emp_name,
+    -> salary
+    -> from 
+employees' at line 2
+mysql> creat view salary as select emp_id,emp_name,salary from employees where emp_id in (1001,1003);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'creat view salary as select emp_id,emp_name,salary from employees where emp_id i' at line 1
+mysql> create view salary as select emp_id,emp_name,salary from employees where emp_id in (1001,1003);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from salary
+    -> 
+[2]+  Stopped                 mysql -u root -p
+ubuntu@ubuntu-OptiPlex-5000:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.30-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| Company            |
+| Employee           |
+| Government         |
+| NEW                |
+| TE                 |
+| a4                 |
+| b2                 |
+| cricket            |
+| employee           |
+| hospital           |
+| information_schema |
+| movies             |
+| mysql              |
+| performance_schema |
+| school             |
+| series             |
+| student            |
+| sys                |
+| tvshows            |
+| webseries          |
++--------------------+
+20 rows in set (0.00 sec)
+
+mysql> use employee;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select * from employees;
++--------+----------+--------+--------+------------+
+| emp_id | emp_name | city   | salary | mobile_no  |
++--------+----------+--------+--------+------------+
+|   1001 | sahil    | mumbai | 100000 | 8745692134 |
+|   1002 | Gaurav   | pune   |  76000 | 7412356985 |
+|   1003 | Vinay    | mumbai | 150000 | 9654712358 |
+|   1004 | Manish   | nagpur |  50000 | 5976541258 |
++--------+----------+--------+--------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from salary;
++--------+----------+--------+
+| emp_id | emp_name | salary |
++--------+----------+--------+
+|   1001 | sahil    | 100000 |
+|   1003 | Vinay    | 150000 |
++--------+----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> alter view salart add column city;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add column city' at line 1
+mysql> alter view salary(emp_id,emp_name,city,mobile_no) as select emp_id,emp_name,city,salary from employees where emp_id in (1001,1003);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from salary;
++--------+----------+--------+-----------+
+| emp_id | emp_name | city   | mobile_no |
++--------+----------+--------+-----------+
+|   1001 | sahil    | mumbai |    100000 |
+|   1003 | Vinay    | mumbai |    150000 |
++--------+----------+--------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> drop view salary;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> 
+
