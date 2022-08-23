@@ -1,0 +1,251 @@
+ubuntu@ubuntu-OptiPlex-5000:~$ sudo mysql
+[sudo] password for ubuntu: 
+ERROR 1045 (28000): Access denied for user 'root'@'localhost' (using password: NO)
+ubuntu@ubuntu-OptiPlex-5000:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.30-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| UVM                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| profile            |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> use mysql
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> select *from Emp_1 table
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table' at line 1
+mysql> use mysql
+Database changed
+mysql> exit
+Bye
+ubuntu@ubuntu-OptiPlex-5000:~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.30-0ubuntu0.22.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases
+    -> ;
++--------------------+
+| Database           |
++--------------------+
+| UVM                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| profile            |
+| sys                |
++--------------------+
+6 rows in set (0.00 sec)
+
+mysql> create database Employee;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use Employee;
+Database changed
+mysql> create table Emp1(ID INT PRIMARY KEY, NAME VARCHAR(20), DOJ VARCHAR(20), DESIGNATION VARCHAR(30), SALARY INT);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> INSERT INTO Emp1(1,RITESH RAYKAR,1/02/2020,MANAGER, 600000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,RITESH RAYKAR,1/02/2020,MANAGER, 600000)' at line 1
+mysql> INSERT INTO Emp1(1,"RITESH RAYKAR","1/02/2020","MANAGER", 600000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,"RITESH RAYKAR","1/02/2020","MANAGER", 600000)' at line 1
+mysql> INSERT INTO Emp1 VALUES (1,"RITESH RAYKAR","1/02/2020","MANAGER", 600000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO Emp1 VALUES (2,"SOURABH RODHE","2/02/2020","STAFF", 400000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO Emp1 VALUES (2,"MAYURESH MAHTRE","2/02/2020","STAFF", 400000);
+ERROR 1062 (23000): Duplicate entry '2' for key 'Emp1.PRIMARY'
+mysql> INSERT INTO Emp1 VALUES (3,"MAYURESH MAHTRE","2/02/2020","STAFF", 400000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO Emp1 VALUES (3,"SHUBHAM PAGIRE","2/02/2020","STAFF", 400000);
+ERROR 1062 (23000): Duplicate entry '3' for key 'Emp1.PRIMARY'
+mysql> INSERT INTO Emp1 VALUES (4,"SHUBHAM PAGIRE","2/02/2020","STAFF", 400000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO Emp1 VALUES (5,"KEYUR DESAI","2/03/2020","DEVELOPER", 450000);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> INSERT INTO Emp1 VALUES (6,"ABFHA","2/03/2020","DEVELOPER", 450000);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> SELECT *FROM Emp1;
++----+-----------------+-----------+-------------+--------+
+| ID | NAME            | DOJ       | DESIGNATION | SALARY |
++----+-----------------+-----------+-------------+--------+
+|  1 | RITESH RAYKAR   | 1/02/2020 | MANAGER     | 600000 |
+|  2 | SOURABH RODHE   | 2/02/2020 | STAFF       | 400000 |
+|  3 | MAYURESH MAHTRE | 2/02/2020 | STAFF       | 400000 |
+|  4 | SHUBHAM PAGIRE  | 2/02/2020 | STAFF       | 400000 |
+|  5 | KEYUR DESAI     | 2/03/2020 | DEVELOPER   | 450000 |
+|  6 | ABFHA           | 2/03/2020 | DEVELOPER   | 450000 |
++----+-----------------+-----------+-------------+--------+
+6 rows in set (0.00 sec)
+
+mysql> INSERT INTO Emp1 VALUES (7,"XYZ","2/03/2020","CEO", 450000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT *FROM Emp1;
++----+-----------------+-----------+-------------+--------+
+| ID | NAME            | DOJ       | DESIGNATION | SALARY |
++----+-----------------+-----------+-------------+--------+
+|  1 | RITESH RAYKAR   | 1/02/2020 | MANAGER     | 600000 |
+|  2 | SOURABH RODHE   | 2/02/2020 | STAFF       | 400000 |
+|  3 | MAYURESH MAHTRE | 2/02/2020 | STAFF       | 400000 |
+|  4 | SHUBHAM PAGIRE  | 2/02/2020 | STAFF       | 400000 |
+|  5 | KEYUR DESAI     | 2/03/2020 | DEVELOPER   | 450000 |
+|  6 | ABFHA           | 2/03/2020 | DEVELOPER   | 450000 |
+|  7 | XYZ             | 2/03/2020 | CEO         | 450000 |
++----+-----------------+-----------+-------------+--------+
+7 rows in set (0.01 sec)
+
+mysql> create table Emp2 (OrderID varchar(20), ID int primary key, OrderDate varchar(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into Emp2 values ("10301", 2, "2/04/2021");
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into Emp2 values ("10302", 22, "12/04/2021");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into Emp2 values ("10303", 43, "21/04/2021");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from Emp2;
++---------+----+------------+
+| OrderID | ID | OrderDate  |
++---------+----+------------+
+| 10301   |  2 | 2/04/2021  |
+| 10302   | 22 | 12/04/2021 |
+| 10303   | 43 | 21/04/2021 |
++---------+----+------------+
+3 rows in set (0.00 sec)
+
+mysql> select Orders.OrderID, IDs.Name, Orders.OrdersDate 
+    -> from Emp2
+    -> ;
+ERROR 1054 (42S22): Unknown column 'Orders.OrderID' in 'field list'
+mysql> select Orders.OrderID, IDs.Name, Orders.OrdersDate from Emp1 inner join on Emp2 Emp1.ID=Emp2.ID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'on Emp2 Emp1.ID=Emp2.ID' at line 1
+mysql> select Emp1.name, Emp1.DOJ, Emp1.Salary, Emp2.OrderID, Emp2.OrderDate 
+    -> from Emp1
+    -> inner join Emp2 on Emp1.ID=Emp2.ID;
++---------------+-----------+--------+---------+-----------+
+| name          | DOJ       | Salary | OrderID | OrderDate |
++---------------+-----------+--------+---------+-----------+
+| SOURABH RODHE | 2/02/2020 | 400000 | 10301   | 2/04/2021 |
++---------------+-----------+--------+---------+-----------+
+1 row in set (0.00 sec)
+
+mysql> update *from Emp2 set ID=3 where orderID=10302;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*from Emp2 set ID=3 where orderID=10302' at line 1
+mysql> update from Emp2 set ID=3 where orderID=10302;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from Emp2 set ID=3 where orderID=10302' at line 1
+mysql> update Emp2 set ID=3 where orderID=10302;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Emp2 set ID=4 where orderID=10303;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from Emp2;
++---------+----+------------+
+| OrderID | ID | OrderDate  |
++---------+----+------------+
+| 10301   |  2 | 2/04/2021  |
+| 10302   |  3 | 12/04/2021 |
+| 10303   |  4 | 21/04/2021 |
++---------+----+------------+
+3 rows in set (0.00 sec)
+
+mysql> select Emp1.name, Emp1.DOJ, Emp1.Salary, Emp2.OrderID, Emp2.OrderDate  from Emp1 inner join Emp2 on Emp1.ID=Emp2.ID;
++-----------------+-----------+--------+---------+------------+
+| name            | DOJ       | Salary | OrderID | OrderDate  |
++-----------------+-----------+--------+---------+------------+
+| SOURABH RODHE   | 2/02/2020 | 400000 | 10301   | 2/04/2021  |
+| MAYURESH MAHTRE | 2/02/2020 | 400000 | 10302   | 12/04/2021 |
+| SHUBHAM PAGIRE  | 2/02/2020 | 400000 | 10303   | 21/04/2021 |
++-----------------+-----------+--------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select Emp1.name, Emp1.DOJ, Emp1.Salary, Emp2.OrderID, Emp2.OrderDate  from Emp1 left join Emp2 on Emp1.ID=Emp2.ID;
++-----------------+-----------+--------+---------+------------+
+| name            | DOJ       | Salary | OrderID | OrderDate  |
++-----------------+-----------+--------+---------+------------+
+| RITESH RAYKAR   | 1/02/2020 | 600000 | NULL    | NULL       |
+| SOURABH RODHE   | 2/02/2020 | 400000 | 10301   | 2/04/2021  |
+| MAYURESH MAHTRE | 2/02/2020 | 400000 | 10302   | 12/04/2021 |
+| SHUBHAM PAGIRE  | 2/02/2020 | 400000 | 10303   | 21/04/2021 |
+| KEYUR DESAI     | 2/03/2020 | 450000 | NULL    | NULL       |
+| ABFHA           | 2/03/2020 | 450000 | NULL    | NULL       |
+| XYZ             | 2/03/2020 | 450000 | NULL    | NULL       |
++-----------------+-----------+--------+---------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select Emp1.name, Emp1.DOJ, Emp1.Salary, Emp2.OrderID, Emp2.OrderDate  from Emp1 rigth join Emp2 on Emp1.ID=Emp2.ID;
+ERROR 1054 (42S22): Unknown column 'Emp1.name' in 'field list'
+mysql> select Emp1.name, Emp1.DOJ, Emp1.Salary, Emp2.OrderID, Emp2.OrderDate  from Emp1 right join Emp2 on Emp1.ID=Emp2.ID;
++-----------------+-----------+--------+---------+------------+
+| name            | DOJ       | Salary | OrderID | OrderDate  |
++-----------------+-----------+--------+---------+------------+
+| SOURABH RODHE   | 2/02/2020 | 400000 | 10301   | 2/04/2021  |
+| MAYURESH MAHTRE | 2/02/2020 | 400000 | 10302   | 12/04/2021 |
+| SHUBHAM PAGIRE  | 2/02/2020 | 400000 | 10303   | 21/04/2021 |
++-----------------+-----------+--------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select Emp1.name, Emp1.DOJ, Emp1.Salary, Emp2.OrderID, Emp2.OrderDate  from Emp1 full join Emp2 on Emp1.ID=Emp2.ID;
+ERROR 1054 (42S22): Unknown column 'Emp1.name' in 'field list'
+mysql> select Emp1.name, Emp1.DOJ, Emp1.Salary, Emp2.OrderID, Emp2.OrderDate  from Emp1 full join Emp2 on Emp1.ID=Emp2.ID order by Emp1.name;
+ERROR 1054 (42S22): Unknown column 'Emp1.name' in 'field list'
+mysql> select Emp1.name, Emp1.DOJ, Emp1.Salary, Emp2.OrderID, Emp2.OrderDate  from Emp1 full outer join Emp2 on Emp1.ID=Emp2.ID order by Emp1.name;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'outer join Emp2 on Emp1.ID=Emp2.ID order by Emp1.name' at line 1
+mysql> select Emp1.name, Emp1.DOJ, Emp1.Salary, Emp2.OrderID, Emp2.OrderDate  from Emp1 cross join Emp2 on Emp1.ID=Emp2.ID order by Emp1.name;
++-----------------+-----------+--------+---------+------------+
+| name            | DOJ       | Salary | OrderID | OrderDate  |
++-----------------+-----------+--------+---------+------------+
+| MAYURESH MAHTRE | 2/02/2020 | 400000 | 10302   | 12/04/2021 |
+| SHUBHAM PAGIRE  | 2/02/2020 | 400000 | 10303   | 21/04/2021 |
+| SOURABH RODHE   | 2/02/2020 | 400000 | 10301   | 2/04/2021  |
++-----------------+-----------+--------+---------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select Emp1.name, Emp1.DOJ, Emp1.Salary, Emp2.OrderID, Emp2.OrderDate  from Emp1 full join Emp2 on Emp1.ID=Emp2.ID order by Emp1.name;
+ERROR 1054 (42S22): Unknown column 'Emp1.name' in 'field list'
+mysql> 
+
