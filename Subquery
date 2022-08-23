@@ -1,0 +1,52 @@
+mysql> select *from Emp1;
++----+-----------------+-------------+--------+----------+---------+
+| ID | NAME            | DESIGNATION | SALARY | location | Dept_id |
++----+-----------------+-------------+--------+----------+---------+
+|  1 | RITESH RAYKAR   | MANAGER     | 600000 | pune     |     101 |
+|  2 | SOURABH RODHE   | assistant   | 402000 | pune     |     102 |
+|  3 | MAYURESH MAHTRE | STAFF       | 400000 | kolhapur |     103 |
+|  4 | SHUBHAM PAGIRE  | assistant   | 402000 | pune     |     104 |
+|  5 | KEYUR DESAI     | DEVELOPER   | 450000 | pune     |     105 |
+|  6 | ABFHA           | DEVELOPER   | 450000 | pune     |     106 |
+|  7 | XYZ             | CEO         | 450000 | pune     |     107 |
++----+-----------------+-------------+--------+----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select * from Emp1 where DESIGNATION = (select DESIGNATION from Emp1 where ID = "1");
++----+---------------+-------------+--------+----------+---------+
+| ID | NAME          | DESIGNATION | SALARY | location | Dept_id |
++----+---------------+-------------+--------+----------+---------+
+|  1 | RITESH RAYKAR | MANAGER     | 600000 | pune     |     101 |
++----+---------------+-------------+--------+----------+---------+
+1 row in set (0.01 sec)
+
+mysql> select * from Emp1 where DESIGNATION = (select DESIGNATION from Emp1 where ID = "2");
++----+----------------+-------------+--------+----------+---------+
+| ID | NAME           | DESIGNATION | SALARY | location | Dept_id |
++----+----------------+-------------+--------+----------+---------+
+|  2 | SOURABH RODHE  | assistant   | 402000 | pune     |     102 |
+|  4 | SHUBHAM PAGIRE | assistant   | 402000 | pune     |     104 |
++----+----------------+-------------+--------+----------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select NAME, SALARY  from Emp1 where SALARY > (select SALARY from Emp1 where ID = "2");
++---------------+--------+
+| NAME          | SALARY |
++---------------+--------+
+| RITESH RAYKAR | 600000 |
+| KEYUR DESAI   | 450000 |
+| ABFHA         | 450000 |
+| XYZ           | 450000 |
++---------------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select NAME, SALARY  from Emp1 where SALARY > (select SALARY from Emp1 where ID = "2")order by SALARY;
++---------------+--------+
+| NAME          | SALARY |
++---------------+--------+
+| KEYUR DESAI   | 450000 |
+| ABFHA         | 450000 |
+| XYZ           | 450000 |
+| RITESH RAYKAR | 600000 |
++---------------+--------+
+4 rows in set (0.00 sec)
