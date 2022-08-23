@@ -1,0 +1,45 @@
+select *from Emp1;
++----+-----------------+-------------+--------+----------+---------+
+| ID | NAME            | DESIGNATION | SALARY | location | Dept_id |
++----+-----------------+-------------+--------+----------+---------+
+|  1 | RITESH RAYKAR   | MANAGER     | 600000 | pune     |     101 |
+|  2 | SOURABH RODHE   | assistant   | 402000 | Mumbai   |     102 |
+|  3 | MAYURESH MAHTRE | STAFF       | 400000 | kolhapur |     103 |
+|  4 | SHUBHAM PAGIRE  | assistant   | 402000 | pune     |     104 |
+|  5 | KEYUR DESAI     | DEVELOPER   | 450000 | Mumbai   |     105 |
+|  6 | ABFHA           | DEVELOPER   | 450000 | Kolhapur |     106 |
+|  7 | XYZ             | CEO         | 450000 | pune     |     107 |
++----+-----------------+-------------+--------+----------+---------+
+7 rows in set (0.00 sec)
+
+mysql> select location , sum(SALARY) from Emp1 group by location;
++----------+-------------+
+| location | sum(SALARY) |
++----------+-------------+
+| pune     |     1452000 |
+| Mumbai   |      852000 |
+| kolhapur |      850000 |
++----------+-------------+
+3 rows in set (0.02 sec)
+
+mysql> select location , avg(SALARY) from Emp1 group by location;
++----------+-------------+
+| location | avg(SALARY) |
++----------+-------------+
+| pune     | 484000.0000 |
+| Mumbai   | 426000.0000 |
+| kolhapur | 425000.0000 |
++----------+-------------+
+3 rows in set (0.02 sec)
+
+mysql> select location , sum(SALARY) from Emp1 group by location having sum(SALARY)>850000;
++----------+-------------+
+| location | sum(SALARY) |
++----------+-------------+
+| pune     |     1452000 |
+| Mumbai   |      852000 |
++----------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> 
+
